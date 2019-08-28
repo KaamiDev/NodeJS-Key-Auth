@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="https://kit.fontawesome.com/3ea1402f87.js"></script>
+    <title>Edit Profile</title>
+</head>
+<body id="mainbody">
+    <div class="container rounded" id="mainhome">
+        <h3 id="hometitle">Edit Profile</h3>
+        <% if (status === "success"){ %> 
+            <center>
+            <div class="alert alert-success" style="width:75%;" role="alert">
+                <a href="/editprofile" class="alertlink">Profile Has Been Updated Successfully!</a>
+              </div>
+              </center>
+              <% } %>
+        <% if (status === "errorpfp"){ %> 
+            <center>
+            <div class="alert alert-danger" style="width:75%;" role="alert">
+                <a href="/editprofile" class="alertlinkr">Profile Picture Link is Invalid!</a>
+              </div>
+              </center>
+              <% } %>
+        <div class="card" id="mainhomecard" style="width: 18rem;">
+                <div class="card-body">
+                  <img id="pfpimage" src="<%= pfp %>">
+                  <hr>
+                    <div>    
+                        <div class="form-inline" style="display: inline-block;">
+                          <form action="/editprofilenm" method="post">
+                            <div style="float: right;">
+                            <input type="text" class="form-control" name="newname" style="width: 70%;" value="<%= name %>" required>
+                            <input type="hidden" name="keytochange" value="<%= key %>">
+                            <span class="input-group-btn">
+                              <button type="submit" class="btn btn-danger"><i class="fas fa-check"></i></button>
+                            </span>
+                          </div>
+                          </form>
+                        </div>
+                        
+                          <div class="form-inline" style="display: inline-block;">
+                                <form action="/editprofilepfp" method="post">
+                                  <div style="float: right;">
+                                
+                                  <input type="text" class="form-control" name="newpfp" style="width: 70%;" value="<%= pfp %>">
+                                  <input type="hidden" name="keytochange" value="<%= key %>">
+                                  <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-check"></i></button>
+                                  </span>
+                                </div>
+                                </form>
+                        </div>  
+                    </div>
+                </div>
+              </div>
+        <%- include partials/nav.ejs %>
+      </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="https://kit.fontawesome.com/3ea1402f87.js"></script>
+    <title>Home</title>
+</head>
+<body id="mainbody">
+    <div class="container rounded" id="mainhome">
+        <h3 id="hometitle">Welcome <%= name %>!</h3>
+        <div class="card" id="mainhomecard" style="width: 18rem;">
+                <div class="card-body">
+                  <img id="pfpimage" src="<%= pfp %>">
+                  <h5 class="card-title"><%= name %></h5>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                      <% if (userrank === 5) { %> Admin <% } %>
+                      <% if (userrank === 1) { %> User <% } %>
+                  </h6>
+                  <a href="/editprofile" style="color: #f55a4c" class="card-link">Edit Profile</a>
+                </div>
+              </div>
+        <%- include partials/nav.ejs %>
+      </div>
+</body>
+</html>

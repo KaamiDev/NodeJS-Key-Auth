@@ -1,0 +1,20 @@
+{
+  "name": "key-authenticator-app",
+  "version": "1.0.0",
+  "description": "A login system that uses UUID v4 keys as a form of authentication, built on NodeJS and Express with sqlite.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karamat Hashmi",
+  "license": "GNU",
+  "dependencies": {
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "is-image-url": "^1.1.8",
+    "moment": "^2.24.0",
+    "sqlite3": "^4.1.0",
+    "uuid": "^3.3.3"
+  }
+}

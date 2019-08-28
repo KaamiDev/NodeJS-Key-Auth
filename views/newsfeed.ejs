@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="https://kit.fontawesome.com/3ea1402f87.js"></script>
+    <title>News Feed</title>
+</head>
+<body id="mainbody">
+    <div class="container rounded" id="mainhome" style="margin-right: 15%; margin-left: 15%; width: 70%">
+        <h3 id="hometitle">News Feed and Updates</h3>
+        
+        <% if(userrank === 5) { %><button class="btn btn-xs btn-outline-danger pinkbtn" data-toggle="modal" data-target="#addpost" style="margin-bottom: 20px;"><i class="fas fa-plus"></i> New Post</button> <% }; %>
+        <center>
+                <% if (userrank === 5 && status === "delsuccess"){ %>  <div class="alert alert-success" style="width:50%;" role="alert">
+                    <a href="/newsfeed" class="alertlink">Post Deleted Successfully!</a>
+                  </div> <% } %>
+          </center>
+          <center>
+                <% if (userrank === 5 && status === "postsuccess"){ %>  <div class="alert alert-success" style="width:50%;" role="alert">
+                    <a href="/newsfeed" class="alertlink">Post Added Successfully!</a>
+                  </div> <% } %>
+          </center>
+          <center>
+            <% if (userrank === 5 && status === "editsuccess"){ %>  <div class="alert alert-success" style="width:50%;" role="alert">
+                <a href="/newsfeed" class="alertlink">Post Edited Successfully!</a>
+              </div> <% } %>
+      </center>
+
+        <% data.forEach((item) => { %>
+        <div class="container rounded" style="margin-right: 15%; margin-left: 15%; width: 70%;background-color: #f55a4c; color:#fff;text-align: left;">  
+                <% if(userrank ===5) { %>
+                    
+                    <form action="/newsfeeddp" method="POST">
+                        <input type="hidden" name="idtodelete" value="<%= item.rowid %>">
+                    <button type="submit" class="deletepostbutton"><i class="fas fa-trash-alt circle-icon"></i></button>
+                    </form>
+                    <button id="b1<%= item.rowid %>" onclick="displayfunc('<%= item.rowid %>')" class="editpostbutton"><i class="fas fa-pen circle-icon"></i></button>
+                    <form action="/newsfeedep" method="POST">
+                    <button id="b2<%= item.rowid %>" type="submit" style="display: none;" class="editpostbutton"><i class="fas fa-check circle-icon"></i></button>
+                    
+                    <% } %>
+            <h5 style="padding-top: 15px;padding-bottom: 10px;padding-left: 10px;float:left;"><%= item.title %></h5>
+            <p style="float:right; padding-top:10px;font-size:12px;"><strong><%= item.author %></strong><br>Admin</p>
+            <img src="<%= item.authpfp %>" width="30px" height="30px;" style="border-radius: 50%;float: right;margin:10px">
+            <p style="padding-left: 10px;clear:both;" id="t<%= item.rowid %>"><%= item.post %></p>
+            <% if (userrank === 5) { %>
+              <input type="hidden" name="idtochange" value="<%= item.rowid %>">
+              <textarea name="updatedpost"  style="padding-left: 10px;clear:both;width: 100%;display: none;" id="e<%= item.rowid %>" required><%= item.post %></textarea>
+            </form>
+              <% } %>
+            <p style="font-size: 12px;text-align:right;padding-bottom: 10px;color: #f7b2b2;"><%= item.date %></p>
+            </div>
+            <% }) %>
+
+
+        <%- include partials/nav.ejs %>
+      </div>
+
+
+  <% if(userrank === 5) { %>    <!-- Modal -->
+<div class="modal fade" id="addpost" tabindex="-1" role="dialog" aria-labelledby="editkeyLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editkeyLabel">New Post</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <center>
+                <form action="/newsfeedcp" method="POST" id="cpform">
+                    <input type="text" class="form-control" name="posttitle" style="width: 70%;" maxlength="20"  placeholder="Title of Post" required>
+                    <textarea class="form-control" rows="3" name="postcontent" placeholder="Post contents go here.." style="margin-top: 15px;" required></textarea>
+                </form>
+            </center>
+        </div>
+  
+  
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger" form="cpform">Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% }; %>
+
+<script>
+function displayfunc(id) {
+  var input = document.getElementById("e" + id);
+  var text = document.getElementById("t" + id);
+  var buttonedit = document.getElementById("b1" + id);
+  var buttoncheck = document.getElementById("b2" + id);
+    input.style.display = "block";
+    buttonedit.style.display = "none";
+    text.style.display = "none";
+    buttoncheck.style.display = "block";
+}
+</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

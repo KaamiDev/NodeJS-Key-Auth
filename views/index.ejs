@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="https://kit.fontawesome.com/3ea1402f87.js"></script>
+    <title>Login with key</title>
+</head>
+<body id="mainbody">
+    <div class="container rounded" id="mainformlogin">
+        <h3 id="maintitle">Enter your key below</h3>
+        <form method="POST" action="/" autocomplete="off">
+                <div class="form-group">
+                  <input type="text" class="form-control <% if (status === "invalidkey"){ %>is-invalid<% } %>" id="mainkeyinput" name="key" aria-describedby="inputKey" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" required>
+                  <% if (status === "invalidkey"){ %>  <div class="invalid-feedback">The key entered is invalid.</div>  <% } %>
+                </div>
+                <button type="submit" id="mainsubmitbutton" class="btn btn-outline-danger" name="submit">Submit</button>
+              </form>
+      </div>
+</body>
+</html>
